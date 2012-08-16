@@ -44,6 +44,10 @@ class DynamicParametersUtils {
         return CFG.config.dynamic.parameters.base.url
     }
 
+    static def getRestCallFailRetries() {
+        return CFG.config.dynamic.parameters.rest.call.fail.retries
+    }
+
     static def saveFileParameters(parameters) {
         (new File(DynamicParametersUtils.getParametersFilePath())).withWriter { it << parameters.toString() }
     }

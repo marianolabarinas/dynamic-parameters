@@ -46,4 +46,5 @@ dynamic.parameters.pools.configuration = [
 ]
 dynamic.parameters.rest.default.connection.timeout = 60000
 dynamic.parameters.rest.default.socket.timeout = 60000
+dynamic.parameters.rest.call.fail.retries = 2
 dynamic.parameters.file.path = './TestConfig.groovy'

@@ -66,7 +66,22 @@ class DynamicParametersService {
         try {
             if(DynamicParametersUtils.isPoolsOn()) {
                 DynamicParametersUtils.getPoolConfiguration(pool).each {
-                    result << ([server: it] << [reload: restDynamicParametersService.doReloadParametersPost(it, parameters)])
+                    def attempt = 0
+                    def retry = true
+                    def reload = true
+
+                    while(retry && (attempt < DynamicParametersUtils.getRestCallFailRetries())) {
+                        if(restDynamicParametersService.doReloadParametersPost(it, parameters)) {
+                            reload = true
+                            retry = false
+
+                        } else {
+                            reload = false
+                            attempt++
+                        }
+                    }
+
+                    result << ([server: it] << [reload: reload])
                 }
             }
 
