@@ -20,31 +20,52 @@ environments {
 
     development {
         grails.config.locations = ['file:./TestConfig.groovy']
+
+        dynamic.parameters.security.on = false
+        dynamic.parameters.pools.on = true
+        dynamic.parameters.pools.configuration = [
+                                                    mla: ['127.0.0.1'],
+                                                    mlb: ['127.0.0.1'],
+                                                    mlm: ['127.0.0.1'],
+                                                    rest: ['127.0.0.1'],
+                                                    test: ['127.0.0.1']
+                                                 ]
+        dynamic.parameters.rest.default.connection.timeout = 60000
+        dynamic.parameters.rest.default.socket.timeout = 60000
+        dynamic.parameters.rest.call.fail.retries = 2
+        dynamic.parameters.file.path = './TestConfig.groovy'
         dynamic.parameters.base.url = 'http://##SERVER##:8080/dynamic-parameters/dynamicParameters/save'
     }
 
     test {
         grails.config.locations = ['file:./TestConfig.groovy']
+
+        dynamic.parameters.security.on = false
+        dynamic.parameters.pools.on = true
+        dynamic.parameters.pools.configuration = [
+                                                    mla: ['127.0.0.1'],
+                                                    mlb: ['127.0.0.1'],
+                                                    mlm: ['127.0.0.1'],
+                                                    rest: ['127.0.0.1'],
+                                                    test: ['127.0.0.1']
+                                                 ]
+        dynamic.parameters.rest.default.connection.timeout = 60000
+        dynamic.parameters.rest.default.socket.timeout = 60000
+        dynamic.parameters.rest.call.fail.retries = 2
+        dynamic.parameters.file.path = './TestConfig.groovy'
         dynamic.parameters.base.url = 'http://##SERVER##:8080/dynamic-parameters/dynamicParameters/save'
     }
 
     production {
+        dynamic.parameters.security.on = true
+        dynamic.parameters.security.token = ''
+        dynamic.parameters.pools.on = true
+        dynamic.parameters.pools.configuration = [ ]
+        dynamic.parameters.rest.default.connection.timeout = 60000
+        dynamic.parameters.rest.default.socket.timeout = 60000
+        dynamic.parameters.rest.call.fail.retries = 2
+        dynamic.parameters.file.path = ''
         dynamic.parameters.base.url = 'http://##SERVER##:8080/dynamicParameters/save'
     }
 
 }
-
-dynamic.parameters.security.on = false
-dynamic.parameters.security.token = ''
-dynamic.parameters.pools.on = true
-dynamic.parameters.pools.configuration = [
-    mla: ['127.0.0.1'],
-    mlb: ['127.0.0.1'],
-    mlm: ['127.0.0.1'],
-    rest: ['127.0.0.1'],
-    test: ['127.0.0.1']
-]
-dynamic.parameters.rest.default.connection.timeout = 60000
-dynamic.parameters.rest.default.socket.timeout = 60000
-dynamic.parameters.rest.call.fail.retries = 2
-dynamic.parameters.file.path = './TestConfig.groovy'
