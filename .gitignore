@@ -19,3 +19,4 @@ webserver/sell/bin/*
 *.DS_Storoe
 .metadata/
 Servers/
+*.zip
