@@ -11,8 +11,21 @@ import grails.converters.JSON
  */
 class RestDynamicParametersService extends RestClient {
 
+    def doGetServersToMeliCloudApiGet(pool) {
+        log.debug("Do get to get servers to reload parameters from pool $pool")
+
+        try {
+            RestClientRequest request = new RestClientRequest(DynamicParametersUtils.getParametersBaseUrl().replace('##SERVER##', server), (body as JSON).toString())
+
+        } catch(Exception e) {
+            log.error("Error doing get to get servers to reload parameters from pool $pool", e)
+            return false
+        }
+
+    }
+
     def doReloadParametersPost(server, body) {
-        log.debug("Do post to reload parameter to server $server")
+        log.debug("Do post to reload parameters to server $server")
 
         try {
             RestClientRequest request = new RestClientRequest(DynamicParametersUtils.getParametersBaseUrl().replace('##SERVER##', server), (body as JSON).toString())
