@@ -44,6 +44,10 @@ class DynamicParametersUtils {
         return CFG.config.dynamic.parameters.base.url
     }
 
+    static def getMeliCloudApiBaseUrl() {
+        return CFG.config.dynamic.parameters.base.melicloud.api.url
+    }
+
     static def getRestCallFailRetries() {
         return CFG.config.dynamic.parameters.rest.call.fail.retries
     }

@@ -65,7 +65,7 @@ class DynamicParametersService {
 
         try {
             if(DynamicParametersUtils.isPoolsOn()) {
-                DynamicParametersUtils.getPoolConfiguration(pool).each {
+                restDynamicParametersService.doGetServersToMeliCloudApiGet(pool).each {
                     def attempt = 0
                     def retry = true
                     def reload = true
