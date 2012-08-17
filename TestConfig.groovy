@@ -1,1 +1,5 @@
-parameters = [sell:[on:false]]
+parameters = [
+  "sell": [
+    "on": true
+  ]
+]

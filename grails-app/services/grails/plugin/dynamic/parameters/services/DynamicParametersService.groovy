@@ -3,6 +3,7 @@ package grails.plugin.dynamic.parameters.services
 import org.codehaus.groovy.grails.commons.ConfigurationHolder as CFG
 
 import grails.plugin.dynamic.parameters.utils.DynamicParametersUtils
+import grails.converters.JSON
 
 /**
  * @author mlabarinas
@@ -29,7 +30,7 @@ class DynamicParametersService {
            Map jsonMap = DynamicParametersUtils.convertJsonToNativeObject(request.JSON)
 
            if(!jsonMap.empty) {
-               DynamicParametersUtils.saveFileParameters("parameters = ${jsonMap.toString()}".toString())
+               DynamicParametersUtils.saveFileParameters("parameters = ${DynamicParametersUtils.getMapString(jsonMap as JSON)}".toString())
            }
 
            reloadConfigService.checkNow()

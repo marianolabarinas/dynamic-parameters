@@ -34,7 +34,7 @@ environments {
         dynamic.parameters.rest.default.socket.timeout = 60000
         dynamic.parameters.rest.call.fail.retries = 2
         dynamic.parameters.file.path = './TestConfig.groovy'
-        dynamic.parameters.base.url = 'http://##SERVER##:8080/dynamic-parameters/dynamicParameters/save'
+        dynamic.parameters.base.url = 'http://localhost:8080/dynamic-parameters/dynamicParameters/save'
         dynamic.parameters.base.melicloud.api.url = 'http://api.melicloud.com/compute/instances?pool=sell-syi-webserver-##POOL##-master'
     }
 
