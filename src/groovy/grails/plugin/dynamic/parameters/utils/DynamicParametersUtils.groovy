@@ -52,6 +52,11 @@ class DynamicParametersUtils {
         (new File(DynamicParametersUtils.getParametersFilePath())).withWriter { it << parameters.toString() }
     }
 
+    static def getMapString(json) {
+        json.setPrettyPrint(true)
+        return json.toString().replace('{','[').replace('}', ']')
+    }
+
     static def convertJsonToNativeObject(jsonObject) {
         def result = null
 

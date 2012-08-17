@@ -34,7 +34,7 @@ environments {
         dynamic.parameters.rest.default.socket.timeout = 60000
         dynamic.parameters.rest.call.fail.retries = 2
         dynamic.parameters.file.path = './TestConfig.groovy'
-        dynamic.parameters.base.url = 'http://##SERVER##:8080/dynamic-parameters/dynamicParameters/save'
+        dynamic.parameters.base.url = 'http://localhost:8080/dynamic-parameters/dynamicParameters/save'
     }
 
     test {
@@ -53,7 +53,7 @@ environments {
         dynamic.parameters.rest.default.socket.timeout = 60000
         dynamic.parameters.rest.call.fail.retries = 2
         dynamic.parameters.file.path = './TestConfig.groovy'
-        dynamic.parameters.base.url = 'http://##SERVER##:8080/dynamic-parameters/dynamicParameters/save'
+        dynamic.parameters.base.url = 'http://localhost:8080/dynamic-parameters/dynamicParameters/save'
     }
 
     production {
