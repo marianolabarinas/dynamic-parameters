@@ -11,12 +11,10 @@ class DynamicParametersGrailsPlugin {
     ]
 
     // TODO Fill in these fields
-    def author = "Your name"
+    def author = "mlabarinas"
     def authorEmail = ""
-    def title = "Plugin summary/headline"
-    def description = '''\\
-Brief description of the plugin.
-'''
+    def title = "Parallelized reloading parameters in the different servers of a pool"
+    def description = 'Parallelized reloading parameters in the different servers of a pool'
 
     // URL to the plugin's documentation
     def documentation = "http://grails.org/plugin/dynamic-parameters"
