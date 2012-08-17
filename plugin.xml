@@ -1,9 +1,7 @@
 <plugin name='dynamic-parameters' version='0.1' grailsVersion='1.3.7 &gt; *'>
-  <author>Your name</author>
-  <title>Plugin summary/headline</title>
-  <description>\
-Brief description of the plugin.
-</description>
+  <author>mlabarinas</author>
+  <title>Parallelized reloading parameters in the different servers of a pool</title>
+  <description>Parallelized reloading parameters in the different servers of a pool</description>
   <documentation>http://grails.org/plugin/dynamic-parameters</documentation>
   <resources>
     <resource>BuildConfig</resource>
