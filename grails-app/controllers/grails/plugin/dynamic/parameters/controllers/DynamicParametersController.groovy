@@ -10,7 +10,7 @@ class DynamicParametersController {
     def dynamicParametersService
 
     def save = {
-        if(dynamicParametersService.reloadParameters(request.JSON)) {
+        if(dynamicParametersService.reloadParameters(request)) {
             render status: HttpServletResponse.SC_OK
 
         } else {
