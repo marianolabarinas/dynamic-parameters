@@ -10,6 +10,7 @@ import grails.plugin.dynamic.parameters.utils.DynamicParametersUtils
 class DynamicParametersService {
 
     def restDynamicParametersService
+    def reloadConfigService
 
     def reloadParameters(Closure action) {
         try {
@@ -23,13 +24,15 @@ class DynamicParametersService {
         }
     }
 
-    def reloadParameters(json) {
+    def reloadParameters(request) {
         try {
-           Map jsonMap = DynamicParametersUtils.convertJsonToNativeObject(json)
+           Map jsonMap = DynamicParametersUtils.convertJsonToNativeObject(request.JSON)
 
            if(!jsonMap.empty) {
                DynamicParametersUtils.saveFileParameters("parameters = ${jsonMap.toString()}".toString())
            }
+
+           reloadConfigService.checkNow()
 
            return true
 
