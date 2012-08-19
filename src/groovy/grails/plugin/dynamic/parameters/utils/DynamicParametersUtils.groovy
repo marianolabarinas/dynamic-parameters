@@ -13,7 +13,7 @@ import org.apache.log4j.Logger
  */
 class DynamicParametersUtils {
 
-    def log = Logger.getLogger(DynamicParametersUtils.class)
+    private static def log = Logger.getLogger(DynamicParametersUtils.class)
 
     static def isSecurityOn() {
         return  CFG.config.dynamic.parameters.security.on
