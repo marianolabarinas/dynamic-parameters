@@ -11,7 +11,7 @@ class DynamicParametersFilters {
             before = {
                 if(Environment.current == Environment.PRODUCTION) {
                     if(DynamicParametersUtils.isSecurityOn()) {
-                        return DynamicParametersUtils.getSecurityToken().equals(request.token)
+                        return DynamicParametersUtils.getSecurityToken() == params.token
 
                     } else {
                         return true
