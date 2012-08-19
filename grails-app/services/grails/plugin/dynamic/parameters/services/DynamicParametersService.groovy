@@ -93,7 +93,7 @@ class DynamicParametersService {
                             }
                         }
 
-                        result << ([server: it] << [reload: reload])
+                        result << ([server: server] << [reload: reload])
                     }
                 }
             }
