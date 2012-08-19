@@ -1,10 +1,10 @@
 package grails.plugin.dynamic.parameters.services
 
+import grails.converters.JSON
 import grails.plugin.dynamic.parameters.http.RestClientRequest
 import grails.plugin.dynamic.parameters.http.RestClientResponse
 import grails.plugin.dynamic.parameters.http.client.RestClient
 import grails.plugin.dynamic.parameters.utils.DynamicParametersUtils
-import grails.converters.JSON
 
 /**
  * @author mlabarinas
@@ -12,7 +12,7 @@ import grails.converters.JSON
 class RestDynamicParametersService extends RestClient {
 
     def doReloadParametersPost(server, body) {
-        log.debug("Do post to reload parameter to server $server")
+        log.debug("Do post to reload parameters to server $server")
 
         try {
             RestClientRequest request = new RestClientRequest(DynamicParametersUtils.getParametersBaseUrl().replace('##SERVER##', server), (body as JSON).toString())

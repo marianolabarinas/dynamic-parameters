@@ -6,11 +6,14 @@ import net.sf.json.JSONNull
 import org.codehaus.groovy.grails.web.json.JSONArray
 import org.codehaus.groovy.grails.web.json.JSONObject
 import org.codehaus.groovy.grails.web.metaclass.BindDynamicMethod
+import org.apache.log4j.Logger
 
 /**
  * @author mlabarinas
  */
 class DynamicParametersUtils {
+
+    private static def log = Logger.getLogger(DynamicParametersUtils.class)
 
     static def isSecurityOn() {
         return  CFG.config.dynamic.parameters.security.on
@@ -44,12 +47,25 @@ class DynamicParametersUtils {
         return CFG.config.dynamic.parameters.base.url
     }
 
+    static def getMeliCloudApiBaseUrl() {
+        return CFG.config.dynamic.parameters.base.melicloud.api.url
+    }
+
     static def getRestCallFailRetries() {
         return CFG.config.dynamic.parameters.rest.call.fail.retries
     }
 
     static def saveFileParameters(parameters) {
+        log.debug("Saving parameters to local file")
+
         (new File(DynamicParametersUtils.getParametersFilePath())).withWriter { it << parameters.toString() }
+
+        log.debug("File save OK")
+    }
+
+    static def getMapString(json) {
+        json.setPrettyPrint(true)
+        return json.toString().replace('{','[').replace('}', ']')
     }
 
     static def getMapString(json) {
