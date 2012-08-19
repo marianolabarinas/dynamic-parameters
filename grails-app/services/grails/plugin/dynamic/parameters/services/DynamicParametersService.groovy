@@ -2,8 +2,8 @@ package grails.plugin.dynamic.parameters.services
 
 import org.codehaus.groovy.grails.commons.ConfigurationHolder as CFG
 
-import grails.plugin.dynamic.parameters.utils.DynamicParametersUtils
 import grails.converters.JSON
+import grails.plugin.dynamic.parameters.utils.DynamicParametersUtils
 
 /**
  * @author mlabarinas
@@ -13,26 +13,19 @@ class DynamicParametersService {
     def restDynamicParametersService
     def reloadConfigService
 
-    def reloadParameters(Closure action) {
-        try {
-            action()
-
-            return 'Success reload parameters'
-
-        } catch(Exception e) {
-            log.error('Error reload parameters from closure', e)
-            return 'Error reload parameters from closure'
-        }
-    }
-
     def reloadParameters(request) {
+        log.debug("Start to process request to reload parameters")
+
         try {
            Map jsonMap = DynamicParametersUtils.convertJsonToNativeObject(request.JSON)
+
+           log.debug("Json to reload: ${jsonMap.toString()}")
 
            if(!jsonMap.empty) {
                DynamicParametersUtils.saveFileParameters("parameters = ${DynamicParametersUtils.getMapString(jsonMap as JSON)}".toString())
            }
 
+           log.debug("Force reload parameters now")
            reloadConfigService.checkNow()
 
            return true
@@ -43,13 +36,25 @@ class DynamicParametersService {
         }
     }
 
-    def reloadParameters(Closure action, pool) {
+    def reloadParameters(Closure action) {
+        reloadParameters(action, System.getenv("SCOPE"))
+    }
+
+    def reloadParameters(Closure action, String pool) {
+        reloadParameters(action, [pool])
+    }
+
+    def reloadParameters(Closure action, List pools) {
+        log.debug("Start to process closure to reload parameters in pools ${pools.toString()}")
+
         try {
             action()
 
+            log.debug("Parameters load in runtime config OK")
+
             Map parameters = CFG.config.parameters
 
-            def result = reloadParameters(parameters, pool)
+            def result = noticeReloadParametersToServers(parameters, pools)
 
             if(evaluateResult(result)) {
                 return 'Success reload parameters'
@@ -64,28 +69,32 @@ class DynamicParametersService {
         }
     }
 
-    def reloadParameters(Map parameters, pool) {
+    def noticeReloadParametersToServers(Map parameters, List pools) {
         def result = []
+
+        log.debug("Start notice to servers")
 
         try {
             if(DynamicParametersUtils.isPoolsOn()) {
-                restDynamicParametersService.doGetServersToMeliCloudApiGet(pool).each {
-                    def attempt = 0
-                    def retry = true
-                    def reload = true
+                pools.each { pool ->
+                    restDynamicParametersService.doGetServersToMeliCloudApiGet(pool).each { server ->
+                        def attempt = 0
+                        def retry = true
+                        def reload = true
 
-                    while(retry && (attempt < DynamicParametersUtils.getRestCallFailRetries())) {
-                        if(restDynamicParametersService.doReloadParametersPost(it, parameters)) {
-                            reload = true
-                            retry = false
+                        while(retry && (attempt < DynamicParametersUtils.getRestCallFailRetries())) {
+                            if(restDynamicParametersService.doReloadParametersPost(server, parameters)) {
+                                reload = true
+                                retry = false
 
-                        } else {
-                            reload = false
-                            attempt++
+                            } else {
+                                reload = false
+                                attempt++
+                            }
                         }
-                    }
 
-                    result << ([server: it] << [reload: reload])
+                        result << ([server: it] << [reload: reload])
+                    }
                 }
             }
 

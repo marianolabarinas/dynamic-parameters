@@ -6,11 +6,14 @@ import net.sf.json.JSONNull
 import org.codehaus.groovy.grails.web.json.JSONArray
 import org.codehaus.groovy.grails.web.json.JSONObject
 import org.codehaus.groovy.grails.web.metaclass.BindDynamicMethod
+import org.apache.log4j.Logger
 
 /**
  * @author mlabarinas
  */
 class DynamicParametersUtils {
+
+    def log = Logger.getLogger(DynamicParametersUtils.class)
 
     static def isSecurityOn() {
         return  CFG.config.dynamic.parameters.security.on
@@ -53,7 +56,11 @@ class DynamicParametersUtils {
     }
 
     static def saveFileParameters(parameters) {
+        log.debug("Saving parameters to local file")
+
         (new File(DynamicParametersUtils.getParametersFilePath())).withWriter { it << parameters.toString() }
+
+        log.debug("File save OK")
     }
 
     static def getMapString(json) {
