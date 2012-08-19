@@ -3,10 +3,10 @@ package grails.plugin.dynamic.parameters.utils
 import org.codehaus.groovy.grails.commons.ConfigurationHolder as CFG
 
 import net.sf.json.JSONNull
+import org.apache.log4j.Logger
 import org.codehaus.groovy.grails.web.json.JSONArray
 import org.codehaus.groovy.grails.web.json.JSONObject
 import org.codehaus.groovy.grails.web.metaclass.BindDynamicMethod
-import org.apache.log4j.Logger
 
 /**
  * @author mlabarinas
@@ -61,11 +61,6 @@ class DynamicParametersUtils {
         (new File(DynamicParametersUtils.getParametersFilePath())).withWriter { it << parameters.toString() }
 
         log.debug("File save OK")
-    }
-
-    static def getMapString(json) {
-        json.setPrettyPrint(true)
-        return json.toString().replace('{','[').replace('}', ']')
     }
 
     static def getMapString(json) {
