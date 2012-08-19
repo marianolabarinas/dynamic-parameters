@@ -1,4 +1,4 @@
-<plugin name='dynamic-parameters' version='0.5' grailsVersion='1.3.7 &gt; *'>
+<plugin name='dynamic-parameters' version='0.6' grailsVersion='1.3.7 &gt; *'>
   <author>mlabarinas</author>
   <title>Parallelized reloading parameters in the different servers of a pool</title>
   <description>Parallelized reloading parameters in the different servers of a pool</description>
